@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Cotizador App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <style>
+            .container-img {
+                background-image: url("https://www.solofondos.com/wp-content/uploads/2016/01/Fondos-de-pantalla-4k-coches.jpg");
+                background-size: cover;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-img">
+            <section class="container pt-5 pb-5">
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div id="app-root" class="col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3 text-center">
+                                    <span class="">¡Ingresa los datos de tu auto para cotizar en segundos!</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select v-model="auto_sel" @change="getModelos()" class="form-control">
+                                                <option :value="0">Selecciona un Auto</option>
+                                                <option :value="auto.code" v-for="auto of lista_autos">{{auto.marca}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select v-model="modelo_sel" @change="getSubmarcas()" class="form-control">
+                                                <option :value="0">Selecciona un modelo</option>
+                                                <option :value="modelo.code" v-for="modelo of modelos">{{modelo.modelo}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select v-model="submarca_sel" @change="getDescripciones()" class="form-control">
+                                                <option :value="0">Selecciona un modelo</option>
+                                                <option :value="submarca.code" v-for="submarca of submarcas">{{submarca.submarca}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option :value="0">Selecciona un modelo</option>
+                                                <option :value="descripcion.code" v-for="descripcion of descripciones">{{descripcion.descripcion}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option>Edad del conductor</option>
+                                                <option :value="edad" v-for="edad of edades++" v-if="edad >= 18 && edad <= 95">{{edad}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option>Género</option>
+                                                <option :value="genero.valor" v-for="genero of generos">{{genero.texto}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="codigo_postal" placeholder="Código Postal">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="nombre" placeholder="Escribe tu nombre">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="email" placeholder="Escrite tu email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="telefono" placeholder="Escribe tu telefono">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <div class="form-group form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                Acepto que he leído el <strong>Aviso de privacidad</strong>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary btn-lg btn-block"><strong>Cotiza Gratis</strong></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>
